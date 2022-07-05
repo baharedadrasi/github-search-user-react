@@ -53,8 +53,6 @@ const Repos = () => {
     .slice(0, 5);
   forks = Object.values(forks).slice(-5).reverse();
 
-  console.log(stars, forks);
-
   return (
     <section className="section">
       <Wrapper className="section-center">
