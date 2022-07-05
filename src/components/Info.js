@@ -3,9 +3,63 @@ import { GithubContext } from '../context/context';
 import styled from 'styled-components';
 import { GoRepo, GoGist } from 'react-icons/go';
 import { FiUsers, FiUserPlus } from 'react-icons/fi';
+import Repos from './Repos';
 
 const UserInfo = () => {
-  return <h2>user info component</h2>;
+  const { githubUser } = React.useContext(GithubContext);
+  const { public_repos, followers, following, public_gists } = githubUser;
+  const items = [
+    {
+      id: 1,
+      icon: <GoRepo className="icon" />,
+      label: 'Repos',
+      color: 'pink',
+      value: public_repos,
+    },
+    {
+      id: 2,
+      icon: <FiUsers className="icon" />,
+      label: 'followers',
+      color: 'green',
+      value: followers,
+    },
+    {
+      id: 3,
+      icon: <FiUserPlus className="icon" />,
+      label: 'following',
+      color: 'purple',
+      value: following,
+    },
+    {
+      id: 4,
+      icon: <GoGist className="icon" />,
+      label: 'gists',
+      color: 'yellow',
+      value: public_gists,
+    },
+  ];
+
+  return (
+    <section className="section">
+      <Wrapper className="section-center">
+        {items.map((item) => {
+          return <Item key={item.id} {...item} />;
+        })}
+      </Wrapper>
+    </section>
+  );
+};
+
+const Item = ({ id, icon, label, color, value }) => {
+  return (
+    <article className="item">
+      <span className={color}>{icon}</span>
+      <div>
+        <h3>{value}</h3>
+        <p>{label}</p>
+      </div>
+    </article>
+  );
 };
 
 const Wrapper = styled.section`
